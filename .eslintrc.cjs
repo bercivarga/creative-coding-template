@@ -18,6 +18,7 @@ module.exports = {
   rules: {
     "space-before-function-paren": "off",
     semi: ["error", "always"],
-    quotes: ["error", "double"]
+    quotes: ["error", "double"],
+    "no-new": "off"
   }
 };
