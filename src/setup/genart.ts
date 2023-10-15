@@ -1,8 +1,4 @@
 import P5 from "p5";
-
-// -------------------------------------------------------------------
-
-// 3D generative art setup with Three.js
 import * as THREE from "three";
 
 // 2D/3D generative art setup with P5.js
@@ -33,6 +29,10 @@ export function setupP5() {
 
   new P5(sketch);
 }
+
+// -------------------------------------------------------------------------------
+
+// 2D/3D generative art setup with Three.js
 
 export function setupThree() {
   const container = document.getElementById("genart-container");
