@@ -50,52 +50,29 @@ function takeGenartScreenshot() {
   link.click();
 }
 
-function takeFullScreenshot() {
-  // Take a screenshot of the entire page with vanilla js
-  // https://stackoverflow.com/a/45718176/114157
-
-  const body = document.body;
-  if (!body) throw new Error("No body");
-
-  const html = document.documentElement;
-  if (!html) throw new Error("No html");
-
-  const width = Math.max(
-    body.scrollWidth,
-    body.offsetWidth,
-    html.clientWidth,
-    html.scrollWidth,
-    html.offsetWidth
-  );
-
-  const height = Math.max(
-    body.scrollHeight,
-    body.offsetHeight,
-    html.clientHeight,
-    html.scrollHeight,
-    html.offsetHeight
-  );
-
+async function takeFullScreenshot() {
   const canvas = document.createElement("canvas");
-  canvas.width = width;
-  canvas.height = height;
-
   const context = canvas.getContext("2d");
+  const video = document.createElement("video");
+
   if (!context) throw new Error("No context");
 
-  const img = new Image();
+  try {
+    const captureStream = await navigator.mediaDevices.getDisplayMedia();
+    video.srcObject = captureStream;
+    context.drawImage(video, 0, 0, window.innerWidth, window.innerHeight);
+    const frame = canvas.toDataURL("image/png");
+    captureStream.getTracks().forEach(track => track.stop());
 
-  img.onload = () => {
-    context.drawImage(img, 0, 0);
-  };
+    const link = document.createElement("a");
+    link.href = frame;
+    link.download = "screenshot.png";
+    link.click();
 
-  img.src = canvas.toDataURL("image/png");
+    video.remove();
 
-  const dataURL = canvas.toDataURL("image/png");
-
-  const link = document.createElement("a");
-
-  link.href = dataURL;
-  link.download = "screenshot.png";
-  link.click();
+    console.log("📸 Took screenshot");
+  } catch (err) {
+    console.error("Error: " + err);
+  }
 }
