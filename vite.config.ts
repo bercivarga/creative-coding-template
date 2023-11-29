@@ -1,4 +1,5 @@
 import path from "path";
+import glsl from "vite-plugin-glsl";
 import { defineConfig } from "vite";
 
 const __dirname = path.resolve();
@@ -9,5 +10,6 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "/src")
     }
-  }
+  },
+  plugins: [glsl()]
 });

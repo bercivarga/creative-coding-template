@@ -1,5 +1,9 @@
 import P5 from "p5";
 import * as THREE from "three";
+// @ts-ignore
+import vertex from "@/shaders/vertex.glsl";
+// @ts-ignore
+import fragment from "@/shaders/fragment.glsl";
 
 // 2D/3D generative art setup with P5.js
 export function setupP5() {
@@ -46,14 +50,19 @@ export function setupThree() {
   const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
 
   const renderer = new THREE.WebGLRenderer({
-    antialias: true
+    antialias: true,
+    preserveDrawingBuffer: true
     // alpha: true
   });
   renderer.setSize(width, height);
   container.appendChild(renderer.domElement);
 
   const geometry = new THREE.BoxGeometry();
-  const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+  // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+  const material = new THREE.ShaderMaterial({
+    vertexShader: vertex,
+    fragmentShader: fragment
+  });
   const cube = new THREE.Mesh(geometry, material);
 
   scene.add(cube);
