@@ -4,10 +4,19 @@ import * as THREE from "three";
 import vertex from "@/shaders/vertex.glsl";
 // @ts-ignore
 import fragment from "@/shaders/fragment.glsl";
+import palettes from "nice-color-palettes";
 
 // 2D/3D generative art setup with P5.js
 export function setupP5() {
   const container = document.getElementById("genart-container");
+
+  const palette = palettes[Math.floor(Math.random() * palettes.length)];
+
+  const colors = {
+    bg: palette[0],
+    rect1: palette[1],
+    rect2: palette[2]
+  };
 
   const sketch = (p: P5) => {
     p.setup = () => {
@@ -21,12 +30,12 @@ export function setupP5() {
     };
 
     p.draw = () => {
-      p.background(220);
+      p.background(colors.bg);
 
-      p.fill(255, 0, 0);
+      p.fill(colors.rect1);
       p.rect(100, 100, 100, 100);
 
-      p.fill(0, 255, 0);
+      p.fill(colors.rect2);
       p.rect(200, 100, 100, 100);
     };
   };

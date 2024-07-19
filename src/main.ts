@@ -1,4 +1,4 @@
-import { setupThree } from "@/setup/genart";
+import { setupP5 } from "@/setup/genart";
 // import { setupScroll } from "@/setup/scroll";
 // import { setupTransition } from "@/setup/transition";
 import { setupScreenshot } from "@/setup/screenShot";
@@ -14,5 +14,5 @@ setupScreenshot({
 });
 // setupScroll();
 // setupTransition();
-// setupP5();
-setupThree();
+setupP5();
+// setupThree();
